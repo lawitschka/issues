@@ -3,6 +3,7 @@ defmodule Issues.GithubIssues do
   Fetch issues from Github and transform JSON data into Elixir data structures.
   """
 
+  @github_url Application.get_env(:issues, :github_url)
   @user_agent [{ "User-Agent", "Programming Elixir me@moritzlawitschka.de" }]
 
   def fetch(user, project) do
@@ -12,7 +13,7 @@ defmodule Issues.GithubIssues do
   end
 
   def issues_url(user, project) do
-    "https://api.github.com/repos/#{user}/#{project}/issues"
+    "#{@github_url}/repos/#{user}/#{project}/issues"
   end
 
   def handle_response({ :ok, %{status_code: 200, body: body}}) do
